@@ -1,11 +1,24 @@
-const { connect } = require("mongoose");
+const { MongoClient } = require("mongodb");
+const { dbName, dbURLs } = require("../config");
 
-async function connectDB() {
-  try {
-    await connect(process.env.DATABASE_URL);
-    console.log(`MongoDB Connected`);
-  } catch (error) {
-    console.error("MongoDB Error", error);
-  }
+async function connectToDatabases() {
+  const databases = [];
+
+  // Connect to each database in parallel
+  await Promise.all(
+    dbURLs.map(async (url) => {
+      try {
+        const client = new MongoClient(url);
+        await client.connect();
+        const db = client.db(dbName);
+        databases.push(db);
+      } catch (error) {
+        console.error(`Failed to connect to database: ${error.message}`);
+      }
+    })
+  );
+
+  return databases;
 }
-module.exports = connectDB;
+
+module.exports = { connectToDatabases };
