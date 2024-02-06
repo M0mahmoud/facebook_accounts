@@ -3,8 +3,10 @@ dotenv.config();
 
 module.exports = {
   PORT: process.env.PORT || 3000,
+  ADMIN: process.env.ADMIN,
   dbName: process.env.DB_NAME,
   collectionName: process.env.COLLECTION_NAME,
+  FACEBOOK_DB: process.env.FACEBOOK_DB_V2,
   dbURLs: [
     // TODO: Refactor this approach
     // Each URL has 3 million of Users

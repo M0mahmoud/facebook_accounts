@@ -1,9 +1,13 @@
 const express = require("express");
 const { PORT } = require("./config");
+
 const {
   searchWithPhone,
   withIdController,
 } = require("./controllers/searchController");
+const codeSearch = require("./controllers/codeSearch");
+const authController = require("./controllers/authController");
+const { TelegramBotInit } = require("./telegram");
 
 const app = express();
 app.use(express.json());
@@ -19,6 +23,11 @@ app.use((_req, res, next) => {
   next();
 });
 
+// Telegram Bot
+TelegramBotInit();
+
+app.get("/login", authController);
+app.get("/search", codeSearch);
 app.get("/withphone", searchWithPhone);
 app.get("/withId", withIdController);
 
