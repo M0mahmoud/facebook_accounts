@@ -2,8 +2,10 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 module.exports = {
-  PORT: process.env.PORT || 3000,
-  ADMIN: process.env.ADMIN,
+  PORT: process.env.PORT || 3001,
+  ADMIN_05: process.env.ADMIN_05,
+  ADMIN_USF: process.env.ADMIN_USF,
+  BOT_TOKEN: process.env.BOT_TOKEN,
   dbName: process.env.DB_NAME,
   collectionName: process.env.COLLECTION_NAME,
   FACEBOOK_DB: process.env.FACEBOOK_DB_V2,

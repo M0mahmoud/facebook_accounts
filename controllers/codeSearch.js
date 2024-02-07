@@ -31,7 +31,7 @@ const codeSearch = async (req, res) => {
         throw error;
       }
     }
-    if (user.id !== ADMIN) {
+    if (user.id !== ADMIN_05 && user.id !== ADMIN_USF) {
       user.points = user.points - 1;
     }
     await user.save();
