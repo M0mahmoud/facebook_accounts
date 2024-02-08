@@ -1,7 +1,7 @@
 const axios = require("axios");
 const UserDB = require("../db/users");
 const User = require("../models/User.Model");
-const { FACEBOOK_DB, ADMIN } = require("../config");
+const { FACEBOOK_DB, ADMIN_05, ADMIN_USF } = require("../config");
 
 const codeSearch = async (req, res) => {
   const { code, id, key } = req.body;
@@ -37,8 +37,7 @@ const codeSearch = async (req, res) => {
     await user.save();
     return res.json({ facebook, points: user.points }).status(200);
   } catch (error) {
-    console.error("Internal Server Error");
-    return res.json({ msg: "Internal Server Error" }).status(404);
+    return res.json({ msg: error.message }).status(404);
   }
 };
 
