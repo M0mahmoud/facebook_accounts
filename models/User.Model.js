@@ -14,7 +14,7 @@ const userSchema = new Schema({
   },
   points: {
     type: Number,
-    default: 5,
+    default: 10,
   },
 });
 

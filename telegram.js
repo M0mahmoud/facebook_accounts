@@ -47,7 +47,7 @@ Login Within In Our App`,
     const chatId = msg.chat.id;
     const message = `Welcome, 
 To generate your login code, please click \/generatecode
-contact us [Here](https://t.me/dev_mahmoud_05)`;
+contact us [Here](https://t.me/DataHunterpointsbot)`;
     bot.sendMessage(chatId, message, {
       parse_mode: "MarkdownV2",
     });
@@ -65,7 +65,7 @@ contact us [Here](https://t.me/dev_mahmoud_05)`;
         return;
       }
 
-      if (isAdmin.id !== ADMIN_05 && isAdmin.id !== ADMIN_USF) {
+      if (isAdmin.id !== ADMIN_05) {
         bot.sendMessage(chatId, "Forbidden, Only Admins...");
         return;
       }
