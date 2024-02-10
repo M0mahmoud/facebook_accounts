@@ -22,7 +22,7 @@ const codeSearch = async (req, res) => {
     }
     let facebook;
     try {
-      const { data } = await axios.get(`${FACEBOOK_DB}search?key=${key}`);
+      const { data } = await axios.get(`${FACEBOOK_DB}s?key=${key}`);
       facebook = data;
     } catch (error) {
       if (error.response && error.response.status === 404) {

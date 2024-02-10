@@ -65,7 +65,7 @@ contact us [Here](https://t.me/DataHunterpointsbot)`;
         return;
       }
 
-      if (isAdmin.id !== ADMIN_05) {
+      if (isAdmin.id !== ADMIN_05 && isAdmin.id !== ADMIN_USF) {
         bot.sendMessage(chatId, "Forbidden, Only Admins...");
         return;
       }
