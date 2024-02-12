@@ -24,15 +24,15 @@ const codeSearch = async (req, res) => {
     try {
       const { data } = await axios.get(`${FACEBOOK_DB}s?key=${key}`);
       facebook = data;
+      if (user.id !== ADMIN_05 && user.id !== ADMIN_USF) {
+        user.points = user.points - 1;
+      }
     } catch (error) {
       if (error.response && error.response.status === 404) {
         facebook = { data: "User Not Found" };
       } else {
         throw error;
       }
-    }
-    if (user.id !== ADMIN_05 && user.id !== ADMIN_USF) {
-      user.points = user.points - 1;
     }
     await user.save();
     return res.json({ facebook, points: user.points }).status(200);
