@@ -34,13 +34,35 @@ const fakeCall = async (req, res) => {
         .status(200);
     }
 
+    // Check if 24 hours have passed since the last call
+    const lastCallTime = callCode.lastCallTime || 0;
+    const currentTime = Date.now();
+    const timeDiff = currentTime - lastCallTime;
+    const hoursPassed = timeDiff / (1000 * 60 * 60);
+
+    // If 24 hours have passed, reset points to 3
+    if (hoursPassed >= 24) {
+      callCode.points = 3;
+    }
+
     try {
       const generatedId = generateRandomString(5, "1234567890");
       const requestData = prepareRequestData(phoneNumber, generatedId);
-      const message = await sendRequest(requestData, callCode, user);
+      const message = await sendRequest(
+        requestData,
+        callCode,
+        user,
+        currentTime
+      );
 
       await callCode.save();
-      return res.json({ message, points: callCode.points }).status(200);
+      return res
+        .json({
+          message,
+          points: callCode.points,
+          lastCallTime: callCode.lastCallTime,
+        })
+        .status(200);
     } catch (error) {
       console.error(error);
       return NextResponse.json({ message: "خطأ بالإتصال بالإنترنت" });
@@ -52,7 +74,7 @@ const fakeCall = async (req, res) => {
   }
 };
 
-async function sendRequest(data, callCode, user) {
+async function sendRequest(data, callCode, user, currentTime) {
   const url = "https://account-asia-south1.truecaller.com/v2/sendOnboardingOtp";
   const headers = {
     Host: "account-asia-south1.truecaller.com",
@@ -75,6 +97,7 @@ async function sendRequest(data, callCode, user) {
     if (message === "Sent") {
       if (user.id !== ADMIN_05 && user.id !== ADMIN_USF) {
         callCode.points = callCode.points - 1;
+        callCode.lastCallTime = currentTime;
       }
     }
     return message;
