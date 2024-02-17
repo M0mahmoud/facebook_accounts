@@ -6,10 +6,7 @@ const { createHash } = require("crypto");
 
 const fakeCall = async (req, res) => {
   const phoneNumber = req.body.phone;
-  console.log("phoneNumber:", phoneNumber);
   const code = req.body.code;
-  console.log("code:", code);
-
   try {
     await UserDB();
     const user = await User.findOne({ code });
@@ -20,47 +17,26 @@ const fakeCall = async (req, res) => {
         })
         .status(404);
     }
-
     let callCode = await Call.findOne({ code });
-
     if (!callCode) {
       callCode = new Call({ code });
-      console.log("callCode:", callCode);
     }
-
     if (callCode.points === 0) {
       return res
         .json({ msg: "عدد النقاط لديك لا يسمح بـ إجراء عمليه البحث" })
         .status(200);
     }
 
-    // Check if 24 hours have passed since the last call
-    const lastCallTime = callCode.lastCallTime || 0;
-    const currentTime = Date.now();
-    const timeDiff = currentTime - lastCallTime;
-    const hoursPassed = timeDiff / (1000 * 60 * 60);
-
-    // If 24 hours have passed, reset points to 3
-    if (hoursPassed >= 24) {
-      callCode.points = 3;
-    }
-
     try {
       const generatedId = generateRandomString(5, "1234567890");
       const requestData = prepareRequestData(phoneNumber, generatedId);
-      const message = await sendRequest(
-        requestData,
-        callCode,
-        user,
-        currentTime
-      );
+      const message = await sendRequest(requestData, callCode, user);
 
       await callCode.save();
       return res
         .json({
           message,
           points: callCode.points,
-          lastCallTime: callCode.lastCallTime,
         })
         .status(200);
     } catch (error) {
@@ -74,7 +50,7 @@ const fakeCall = async (req, res) => {
   }
 };
 
-async function sendRequest(data, callCode, user, currentTime) {
+async function sendRequest(data, callCode, user) {
   const url = "https://account-asia-south1.truecaller.com/v2/sendOnboardingOtp";
   const headers = {
     Host: "account-asia-south1.truecaller.com",
@@ -97,7 +73,6 @@ async function sendRequest(data, callCode, user, currentTime) {
     if (message === "Sent") {
       if (user.id !== ADMIN_05 && user.id !== ADMIN_USF) {
         callCode.points = callCode.points - 1;
-        callCode.lastCallTime = currentTime;
       }
     }
     return message;

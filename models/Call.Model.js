@@ -7,12 +7,9 @@ const CallSchema = new Schema({
     required: true,
     unique: true,
   },
-  lastCallTime: {
-    type: String,
-  },
   points: {
     type: Number,
-    default: 3,
+    default: 5,
   },
 });
 
