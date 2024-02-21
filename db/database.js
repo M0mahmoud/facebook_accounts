@@ -6,14 +6,17 @@ async function connectToDatabases() {
 
   // Connect to each database in parallel
   await Promise.all(
-    dbURLs.map(async (url) => {
+    dbURLs.map(async (url, index) => {
       try {
         const client = new MongoClient(url);
         await client.connect();
         const db = client.db(dbName);
         databases.push(db);
+        console.log(`Successfully: ${index}`);
       } catch (error) {
-        console.error(`Failed to connect to database: ${error.message}`);
+        console.error(
+          `Failed to connect to database at ${index}: ${error.message}`
+        );
       }
     })
   );
