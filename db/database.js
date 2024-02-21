@@ -8,7 +8,10 @@ async function connectToDatabases() {
   await Promise.all(
     dbURLs.map(async (url, index) => {
       try {
-        const client = new MongoClient(url);
+        const client = new MongoClient(url, {
+          maxPoolSize: 18,
+          minPoolSize: 1,
+        });
         await client.connect();
         const db = client.db(dbName);
         databases.push(db);
