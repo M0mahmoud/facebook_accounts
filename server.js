@@ -33,8 +33,8 @@ app.use((_req, res, next) => {
 
 app.get("/login", authController);
 app.get("/search", codeSearch);
-app.get("/withphone", searchWithPhone);
-app.get("/withId", withIdController);
+app.post("/withphone", searchWithPhone);
+app.post("/withid", withIdController);
 app.post("/call", fakeCall);
 
 app.use("/", (_req, res) => {
