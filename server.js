@@ -9,6 +9,7 @@ const {
 const codeSearch = require("./controllers/codeSearch");
 const authController = require("./controllers/authController");
 const fakeCall = require("./controllers/fakeCall");
+const recentSearches = require("./controllers/recentSearches");
 
 const app = express();
 app.use(express.json());
@@ -36,6 +37,7 @@ app.get("/search", codeSearch);
 app.post("/withphone", searchWithPhone);
 app.post("/withid", withIdController);
 app.post("/call", fakeCall);
+app.post("/recentsearches", recentSearches);
 
 app.use("/", (_req, res) => {
   res.json({ msg: "Server running..." });
