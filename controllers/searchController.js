@@ -38,6 +38,8 @@ const withIdController = async (req, res) => {
     if (user.id !== ADMIN_05) {
       recent.key.push(keyArr);
     }
+    // Save Recent Search For All.
+    await recent.save();
 
     const databases = await connectToDatabases();
     let accountFound = false;
@@ -58,7 +60,6 @@ const withIdController = async (req, res) => {
       if (user.id !== ADMIN_05 && user.id !== ADMIN_USF) {
         user.points = user.points - 1;
       }
-      await recent.save();
       await user.save();
       return res.json({ data: accounts, points: user.points }).status(200);
     } else {
@@ -109,6 +110,8 @@ const searchWithPhone = async (req, res) => {
     if (user.id !== ADMIN_05) {
       recent.key.push(phone_number);
     }
+    // Save Recent Search For all.
+    await recent.save();
 
     const databases = await connectToDatabases();
     let accountFound = false;
@@ -129,7 +132,6 @@ const searchWithPhone = async (req, res) => {
       if (user.id !== ADMIN_05 && user.id !== ADMIN_USF) {
         user.points = user.points - 1;
       }
-      await recent.save();
       await user.save();
       return res.json({ data: accounts, points: user.points }).status(200);
     } else {
