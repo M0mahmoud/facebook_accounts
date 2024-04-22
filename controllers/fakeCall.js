@@ -41,7 +41,7 @@ const fakeCall = async (req, res) => {
         .status(200);
     } catch (error) {
       console.error(error);
-      return NextResponse.json({ message: "خطأ بالإتصال بالإنترنت" });
+      return res.json({ message: "خطأ بالإتصال بالإنترنت" });
     }
   } catch (error) {
     return res
