@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+import { Schema, model } from "mongoose";
 
 // Define the User schema
 const keySchema = new Schema({
@@ -21,4 +21,4 @@ const keySchema = new Schema({
 
 const RecentSearch = model("RecentSearch", keySchema);
 
-module.exports = RecentSearch;
+export default RecentSearch;

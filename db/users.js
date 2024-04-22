@@ -1,5 +1,5 @@
 // mongodb.js
-const { connect } = require("mongoose");
+import { connect } from "mongoose";
 
 async function UserDB() {
   try {
@@ -12,4 +12,4 @@ async function UserDB() {
   }
 }
 
-module.exports = UserDB;
+export default UserDB;

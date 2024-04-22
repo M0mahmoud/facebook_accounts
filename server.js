@@ -1,18 +1,19 @@
-const express = require("express");
-const { rateLimit } = require("express-rate-limit");
-const { PORT } = require("./config");
+import express, { json } from "express";
+import { rateLimit } from "express-rate-limit";
+import { PORT } from "./config.js";
 
-const {
+import authController from "./controllers/authController.js";
+import codeSearch from "./controllers/codeSearch.js";
+import fakeCall from "./controllers/fakeCall.js";
+import recentSearches from "./controllers/recentSearches.js";
+import {
   searchWithPhone,
   withIdController,
-} = require("./controllers/searchController");
-const codeSearch = require("./controllers/codeSearch");
-const authController = require("./controllers/authController");
-const fakeCall = require("./controllers/fakeCall");
-const recentSearches = require("./controllers/recentSearches");
+} from "./controllers/searchController.js";
+import varcelCall from "./controllers/vercelCall.js";
 
 const app = express();
-app.use(express.json());
+app.use(json());
 
 const limiter = rateLimit({
   windowMs: 60 * 1000, // 1 minute
@@ -32,11 +33,13 @@ app.use((_req, res, next) => {
   next();
 });
 
+// app.post("/vercel", varcelCall);
+
 app.get("/login", authController);
 app.get("/search", codeSearch);
 app.post("/withphone", searchWithPhone);
 app.post("/withid", withIdController);
-app.post("/call", fakeCall);
+app.post("/call", varcelCall);
 app.post("/recentsearches", recentSearches);
 
 app.use("/", (_req, res) => {

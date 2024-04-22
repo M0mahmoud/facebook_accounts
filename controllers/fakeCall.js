@@ -1,8 +1,8 @@
-const { ADMIN_USF, ADMIN_05 } = require("../config");
-const UserDB = require("../db/users");
-const Call = require("../models/Call.Model");
-const User = require("../models/User.Model");
-const { createHash } = require("crypto");
+import { createHash } from "crypto";
+import { ADMIN_05, ADMIN_USF } from "../config.js";
+import UserDB from "../db/users.js";
+import Call from "../models/Call.Model.js";
+import User from "../models/User.Model.js";
 
 const fakeCall = async (req, res) => {
   const phoneNumber = req.body.phone;
@@ -123,4 +123,4 @@ function prepareRequestData(phone, generatedId) {
   };
 }
 
-module.exports = fakeCall;
+export default fakeCall;

@@ -1,10 +1,10 @@
-const { collectionName, ADMIN_05, ADMIN_USF } = require("../config");
-const { connectToDatabases } = require("../db/database");
-const UserDB = require("../db/users");
-const RecentSearch = require("../models/RecentSearch.Model");
-const User = require("../models/User.Model");
+import { ADMIN_05, ADMIN_USF, collectionName } from "../config.js";
+import connectToDatabases from "../db/database.js";
+import UserDB from "../db/users.js";
+import RecentSearch from "../models/RecentSearch.Model.js";
+import User from "../models/User.Model.js";
 
-const withIdController = async (req, res) => {
+export const withIdController = async (req, res) => {
   const { code, id, facebook_id } = req.body;
   try {
     if (!facebook_id) {
@@ -75,7 +75,7 @@ const withIdController = async (req, res) => {
   }
 };
 
-const searchWithPhone = async (req, res) => {
+export const searchWithPhone = async (req, res) => {
   const { code, id, phone } = req.body;
   try {
     if (!phone) {
@@ -146,5 +146,3 @@ const searchWithPhone = async (req, res) => {
       .status(404);
   }
 };
-
-module.exports = { withIdController, searchWithPhone };

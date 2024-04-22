@@ -1,8 +1,8 @@
-const axios = require("axios");
-const UserDB = require("../db/users");
-const User = require("../models/User.Model");
-const RecentSearch = require("../models/RecentSearch.Model");
-const { FACEBOOK_DB, ADMIN_05, ADMIN_USF } = require("../config");
+import axios from "axios";
+import { ADMIN_05, ADMIN_USF, FACEBOOK_DB } from "../config.js";
+import UserDB from "../db/users.js";
+import RecentSearch from "../models/RecentSearch.Model.js";
+import User from "../models/User.Model.js";
 
 const codeSearch = async (req, res) => {
   const { code, id, key } = req.body;
@@ -70,4 +70,4 @@ const codeSearch = async (req, res) => {
   }
 };
 
-module.exports = codeSearch;
+export default codeSearch;

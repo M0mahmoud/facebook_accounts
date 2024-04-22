@@ -1,5 +1,5 @@
-const { MongoClient } = require("mongodb");
-const { dbName, dbURLs } = require("../config");
+import { MongoClient } from "mongodb";
+import { dbName, dbURLs } from "../config.js";
 
 async function connectToDatabases() {
   const databases = [];
@@ -27,4 +27,4 @@ async function connectToDatabases() {
   return databases;
 }
 
-module.exports = { connectToDatabases };
+export default connectToDatabases;

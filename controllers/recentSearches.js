@@ -1,6 +1,6 @@
-const UserDB = require("../db/users");
-const RecentSearch = require("../models/RecentSearch.Model");
-const User = require("../models/User.Model");
+import UserDB from "../db/users.js";
+import RecentSearch from "../models/RecentSearch.Model.js";
+import User from "../models/User.Model.js";
 
 const recentSearches = async (req, res) => {
   const { code } = req.body;
@@ -24,4 +24,4 @@ const recentSearches = async (req, res) => {
   }
 };
 
-module.exports = recentSearches;
+export default recentSearches;

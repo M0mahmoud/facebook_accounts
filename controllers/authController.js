@@ -1,5 +1,5 @@
-const UserDB = require("../db/users");
-const User = require("../models/User.Model");
+import UserDB from "../db/users.js";
+import User from "../models/User.Model.js";
 
 const authController = async (req, res) => {
   const code = req.body.code;
@@ -16,4 +16,4 @@ const authController = async (req, res) => {
     console.error("Error generating code:", error);
   }
 };
-module.exports = authController;
+export default authController;
