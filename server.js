@@ -6,10 +6,7 @@ import authController from "./controllers/authController.js";
 import codeSearch from "./controllers/codeSearch.js";
 import fakeCall from "./controllers/fakeCall.js";
 import recentSearches from "./controllers/recentSearches.js";
-import {
-  searchWithPhone,
-  withIdController,
-} from "./controllers/searchController.js";
+import { searchWithPhone, withIdController } from "./controllers/searchController.js";
 import varcelCall from "./controllers/vercelCall.js";
 
 const app = express();
@@ -25,10 +22,7 @@ app.use(limiter);
 // Set up CORS headers
 app.use((_req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "OPTIONS, GET, POST, PUT, PATCH, DELETE"
-  );
+  res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET, POST, PUT, PATCH, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
 });
@@ -46,6 +40,6 @@ app.use("/", (_req, res) => {
   res.json({ msg: "Server running..." });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server is running on port ${PORT}`);
 });

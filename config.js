@@ -1,7 +1,7 @@
 import { config } from "dotenv";
 config();
 
-export const PORT = process.env.PORT || 3001;
+export const PORT = process.env.PORT || 3000;
 export const ADMIN_05 = process.env.ADMIN_05;
 export const ADMIN_USF = process.env.ADMIN_USF;
 export const BOT_TOKEN = process.env.BOT_TOKEN;
