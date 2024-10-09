@@ -30,6 +30,7 @@ app.use((_req, res, next) => {
 // app.post("/vercel", varcelCall);
 
 app.get("/login", authController);
+app.post("/login", authController);
 app.get("/search", codeSearch);
 app.post("/withphone", searchWithPhone);
 app.post("/withid", withIdController);
