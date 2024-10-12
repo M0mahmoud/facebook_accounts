@@ -47,11 +47,11 @@ export const withIdController = async (req, res) => {
 
     for (const db of databases) {
       const collection = db.collection(collectionName);
-      const account = await collection.find({ id: facebook_id }).toArray();
+      const account = await collection.findOne({ id: facebook_id });
       console.log("account:", account);
-      if (account.length > 0) {
+      if (account) {
         accountFound = true;
-        accounts.push(...account);
+        accounts.push(account);
         break;
       }
     }
