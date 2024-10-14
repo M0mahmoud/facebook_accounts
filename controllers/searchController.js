@@ -119,7 +119,7 @@ export const searchWithPhone = async (req, res) => {
 
     for (const db of databases) {
       const collection = db.collection(collectionName);
-      const account = await collection.findOne({ id: facebook_id });
+      const account = await collection.findOne({ phone: facebook_id });
       if (account) {
         accountFound = true;
         accounts.push(account);
